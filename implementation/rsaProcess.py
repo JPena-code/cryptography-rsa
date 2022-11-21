@@ -15,8 +15,7 @@ def encryption(owner='', *, path_key='./keys', file_path=''):
                                         algorithm=hashes.SHA256(),
                                         label=None))
   encrypted_path = f'./messages/{owner}.json'
-  cyphert_text = str(int.from_bytes(cyphert_text, 'big'))
-  messages = [cyphert_text]
+  messages = [cyphert_text.hex()]
   if os.path.isfile(encrypted_path):
     owner_dict = json.load(open(encrypted_path, 'r'))
     messages.extend(owner_dict.get('messages', []))
@@ -39,8 +38,8 @@ def decryption(owner='',
     owner_dict = json.load(msg)
     messages = owner_dict.get('messages', [])
     for msg in messages:
-      msg = transfor(msg)
-      message = private_key.decrypt(msg.encode(),
+      bytesMsg = bytes.fromhex(msg)
+      message = private_key.decrypt(bytesMsg,
                                     padding=padding.OAEP(
                                       mgf=padding.MGF1(hashes.SHA256()),
                                       algorithm=hashes.SHA256(),
