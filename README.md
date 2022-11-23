@@ -6,6 +6,7 @@ The RSA simulator is maded with own implementations of the algoritms needed to t
 
 ## RSA Implementation
 ```bash
+$ sudo apt-get install build-essential libssl-dev libffi-dev python-dev
 $ pip install cryptography
 $ pip install bcrypt
 ```
